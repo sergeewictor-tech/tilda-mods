@@ -1,17 +1,81 @@
-/* Scroll lock (когда меню открыто) */
+/* ===== Base: scroll lock ===== */
 html.mod-scroll-locked{
   overflow:hidden;
   padding-right:var(--mod-scrollbar-w,0px);
 }
 
-/* Флаг открытого меню (для твоих анимаций в Zero Block) */
-html.is-menu-open{}
+/* ===== Tunables (можешь менять где угодно, в т.ч. прямо в ZB через кастомный CSS) ===== */
+:root{
+  --mods-ease: cubic-bezier(.2,.8,.2,1);
+  --mods-menu-dur: 220ms;
+  --mods-submenu-dur: 180ms;
 
-/* Минимум для кликабельности закрытого оверлея (не ломает дизайн) */
-.uc-menu{ pointer-events:none; }
-.uc-menu.is-open{ pointer-events:auto; }
+  /* высота хедера — ставится JS автоматически, но можно руками */
+  --mods-header-h: 80px;
+}
 
-/* Эти классы — “сигналы”, дизайн рисуешь в ZB */
-.uc-header.is-scrolled{}
-.submenu.is-active{}
-.uc-submenu.is-open{}
+/* ===== Burger overlay open/close (без display:none) ===== */
+/* Важно: позиционирование/размеры ты можешь рисовать в ZB. Эти стили только про плавность и интерактивность. */
+.uc-menu{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:
+    opacity var(--mods-menu-dur) var(--mods-ease),
+    visibility 0s linear var(--mods-menu-dur);
+  will-change: opacity;
+}
+.uc-menu.is-open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transition:
+    opacity var(--mods-menu-dur) var(--mods-ease),
+    visibility 0s linear 0s;
+}
+
+/* ===== Submenu open/close (overlay-режим как у “выпадашек”) ===== */
+/* Чтобы скрытые подменю не занимали место в потоке — делаем overlay только если включен класс на html */
+html.mod-submenu-overlay .uc-submenu{
+  position:fixed;
+  left:0;
+  right:0;
+  top:var(--mods-header-h,80px);
+  z-index:999; /* при необходимости подними */
+}
+
+/* Плавное открытие/закрытие */
+.uc-submenu{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform: translateY(-8px);
+  transition:
+    opacity var(--mods-submenu-dur) var(--mods-ease),
+    transform var(--mods-submenu-dur) var(--mods-ease),
+    visibility 0s linear var(--mods-submenu-dur);
+  will-change: opacity, transform;
+}
+.uc-submenu.is-open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform: translateY(0);
+  transition:
+    opacity var(--mods-submenu-dur) var(--mods-ease),
+    transform var(--mods-submenu-dur) var(--mods-ease),
+    visibility 0s linear 0s;
+}
+
+/* ===== Active states (ты стилизуешь сам в ZB) ===== */
+.page.is-active{}
+.page .page-elem.is-active{}
+a.is-active{}
+
+/* ===== Reduced motion ===== */
+@media (prefers-reduced-motion: reduce){
+  .uc-menu, .uc-submenu{
+    transition:none !important;
+    transform:none !important;
+  }
+}
