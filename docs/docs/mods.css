@@ -1,0 +1,17 @@
+/* Scroll lock (когда меню открыто) */
+html.mod-scroll-locked{
+  overflow:hidden;
+  padding-right:var(--mod-scrollbar-w,0px);
+}
+
+/* Флаг открытого меню (для твоих анимаций в Zero Block) */
+html.is-menu-open{}
+
+/* Минимум для кликабельности закрытого оверлея (не ломает дизайн) */
+.uc-menu{ pointer-events:none; }
+.uc-menu.is-open{ pointer-events:auto; }
+
+/* Эти классы — “сигналы”, дизайн рисуешь в ZB */
+.uc-header.is-scrolled{}
+.submenu.is-active{}
+.uc-submenu.is-open{}
