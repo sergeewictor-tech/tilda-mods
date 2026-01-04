@@ -116,7 +116,7 @@ a.is-active{}
 /* ===== Header hide/show (target real visible bar) ===== */
 .header-shell{
   will-change: transform;
-  transition: transform 220ms var(--mods-ease);
+  transition: transform 380ms var(--mods-ease);
 }
 .header-shell.is-hidden{
   transform: translateY(-110%);
