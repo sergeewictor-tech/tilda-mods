@@ -85,12 +85,3 @@ a.is-active{}
   inset: 0 !important;     /* top:0 right:0 bottom:0 left:0 */
   z-index: 9999 !important;
 }
-/* Hide header on scroll down, show on scroll up */
-.uc-header{
-  will-change: transform;
-  transition: transform 220ms var(--mods-ease);
-}
-
-.uc-header.is-hidden{
-  transform: translateY(-110%);
-}
