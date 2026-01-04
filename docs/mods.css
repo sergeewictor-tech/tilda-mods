@@ -10,7 +10,7 @@ html.mod-scroll-locked{
   --mods-menu-dur: 220ms;
   --mods-submenu-dur: 180ms;
   --mods-header-h: 80px;       /* JS will update */
-  --mods-header-dur: 220ms;    /* <-- ВОТ ЭТО меняешь для скорости хедера */
+  --mods-header-dur: 380ms;    /* <-- ВОТ ЭТО меняешь для скорости хедера */
 }
 
 /* ===== FIXED HEADER ===== */
