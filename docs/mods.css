@@ -12,28 +12,56 @@ html.mod-scroll-locked{
   --mods-header-h: 80px; /* JS will update */
 }
 
+/* ===== FIXED HEADER (ключевая правка: хедер больше не "уезжает") ===== */
+.uc-header{
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 10000 !important;
+}
+
+/* чтобы контент не прятался под фиксированным хедером */
+#allrecords{
+  padding-top: var(--mods-header-h, 80px) !important;
+}
+
 /* ===== Burger overlay (no display:none) ===== */
 .uc-menu{
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
+  opacity:0 !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
   transition:
     opacity var(--mods-menu-dur) var(--mods-ease),
     visibility 0s linear var(--mods-menu-dur);
   will-change: opacity;
 
-  /* IMPORTANT: real overlay, not layout block */
   position: fixed !important;
-  inset: 0 !important;     /* top:0 right:0 bottom:0 left:0 */
+  inset: 0 !important;
   z-index: 9999 !important;
 }
+
+/* важное: Tilda часто "живет" в artboard — синхронизируем */
+.uc-menu .t396__artboard{
+  opacity:0 !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+  position: fixed !important;
+  inset: 0 !important;
+}
+
 .uc-menu.is-open{
-  opacity:1;
-  visibility:visible;
-  pointer-events:auto;
+  opacity:1 !important;
+  visibility:visible !important;
+  pointer-events:auto !important;
   transition:
     opacity var(--mods-menu-dur) var(--mods-ease),
     visibility 0s linear 0s;
+}
+.uc-menu.is-open .t396__artboard{
+  opacity:1 !important;
+  visibility:visible !important;
+  pointer-events:auto !important;
 }
 
 /* ===== Submenu overlay container covers whole screen below header ===== */
@@ -42,19 +70,28 @@ html.mod-submenu-overlay .uc-submenu{
   left: 0 !important;
   right: 0 !important;
   top: var(--mods-header-h, 80px) !important;
-  bottom: 0 !important;            /* this gives us "empty area" to click-outside */
+  bottom: 0 !important;
   z-index: 9998 !important;
   background: transparent !important;
 }
 
-/* wrapper visibility */
+/* wrapper visibility hard */
 .uc-submenu{
-  visibility: hidden;
-  pointer-events: none;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
+
+/* ещё один слой тильды */
+.uc-submenu .t396__artboard{
+  pointer-events: none !important;
+}
+
 .uc-submenu.is-open{
-  visibility: visible;
-  pointer-events: auto;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+.uc-submenu.is-open .t396__artboard{
+  pointer-events: auto !important;
 }
 
 /* animate only inner panel */
@@ -83,11 +120,10 @@ a.is-active{}
 }
 .header-shell.is-hidden{
   transform: translateY(-110%);
-  pointer-events: none; /* avoids ghost clicks */
+  pointer-events: none;
 }
 
 /* ===== Transparent header hard-override for Tilda ZeroBlock layers ===== */
-/* If header still shows page background, force all ZB layers transparent */
 .uc-header,
 .uc-header .t396__artboard,
 .uc-header .t396__filter,
