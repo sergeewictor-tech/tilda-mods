@@ -79,3 +79,9 @@ a.is-active{}
     transform:none !important;
   }
 }
+/* === FIX: .uc-menu must be a real overlay (no layout height, visible from any scroll position) === */
+.uc-menu{
+  position: fixed !important;
+  inset: 0 !important;     /* top:0 right:0 bottom:0 left:0 */
+  z-index: 9999 !important;
+}
