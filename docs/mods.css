@@ -144,3 +144,12 @@ a.is-active{}
     transform:none !important;
   }
 }
+/* ===== Fallback: if JS hides .uc-header itself (no .header-shell found) ===== */
+.uc-header{
+  will-change: transform;
+  transition: transform 220ms var(--mods-ease);
+}
+.uc-header.is-hidden{
+  transform: translateY(-110%);
+  pointer-events: none;
+}
