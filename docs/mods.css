@@ -11,6 +11,10 @@ html.mod-scroll-locked{
   --mods-submenu-dur: 180ms;
   --mods-header-h: 80px;       /* JS will update */
   --mods-header-dur: 380ms;    /* <-- ВОТ ЭТО меняешь для скорости хедера */
+
+  /* NEW: прозрачность подложки под пункты меню */
+  --mods-menubar-opacity: .50;
+  --mods-menubar-opacity-hover: .95;
 }
 
 /* ===== FIXED HEADER ===== */
@@ -119,6 +123,32 @@ a.is-active{}
 }
 .uc-header .t396__carrier{
   background-image: none !important;
+}
+
+/* ===== MENU BAR BG (THE SHAPE BEHIND "О нас / Каталог / ...") =====
+   1) На шейп подложки в ZeroBlock повесь CSS class: menu-bar-bg
+   2) Меняем только его прозрачность
+*/
+.menu-bar-bg,
+.menu-bar-bg .tn-atom{
+  opacity: var(--mods-menubar-opacity) !important;
+  transition: opacity var(--mods-header-dur) var(--mods-ease) !important;
+}
+
+/* Hover: когда курсор над самой подложкой или над хедером/оболочкой */
+.menu-bar-bg:hover,
+.uc-header:hover .menu-bar-bg,
+.header-shell:hover .menu-bar-bg,
+.menu-bar-bg:hover .tn-atom,
+.uc-header:hover .menu-bar-bg .tn-atom,
+.header-shell:hover .menu-bar-bg .tn-atom{
+  opacity: var(--mods-menubar-opacity-hover) !important;
+}
+
+/* Дополнительно: если табом фокус на пункте меню — тоже усиливаем */
+.uc-header:focus-within .menu-bar-bg,
+.uc-header:focus-within .menu-bar-bg .tn-atom{
+  opacity: var(--mods-menubar-opacity-hover) !important;
 }
 
 /* ===== Reduced motion =====
