@@ -128,23 +128,24 @@ a.is-active{}
 
 /* ===== MENU BAR BG (THE SHAPE BEHIND "О нас / Каталог / ...") =====
    1) На шейп подложки в ZeroBlock повесь CSS class: menu-bar-bg
-   2) Не трогаем opacity (иначе “пляшет”), задаём цвет через rgba как у чипов
+   2) ВАЖНО: красим только .tn-atom (у него правильная геометрия/скругления),
+      чтобы не появлялся “стремный прямоугольник”.
 */
-.menu-bar-bg,
+.menu-bar-bg{
+  background: transparent !important;
+  opacity: 1 !important;
+}
 .menu-bar-bg .tn-atom{
   opacity: 1 !important;
   background-color: rgba(var(--mods-menubar-rgb), var(--mods-menubar-a)) !important;
   transition: background-color var(--mods-header-dur) var(--mods-ease) !important;
+
+  /* страховка от квадратных артефактов */
+  border-radius: 9999px !important;
+  overflow: hidden !important;
 }
 
-/* Hover: когда курсор над самой подложкой или над хедером/оболочкой */
-.menu-bar-bg:hover,
-.uc-header:hover .menu-bar-bg,
-.header-shell:hover .menu-bar-bg,
-.uc-header:focus-within .menu-bar-bg{
-  background-color: rgba(var(--mods-menubar-rgb), var(--mods-menubar-a-hover)) !important;
-}
-
+/* Hover / focus */
 .menu-bar-bg:hover .tn-atom,
 .uc-header:hover .menu-bar-bg .tn-atom,
 .header-shell:hover .menu-bar-bg .tn-atom,
