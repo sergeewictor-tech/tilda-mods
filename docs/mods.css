@@ -12,9 +12,10 @@ html.mod-scroll-locked{
   --mods-header-h: 80px;       /* JS will update */
   --mods-header-dur: 380ms;    /* <-- ВОТ ЭТО меняешь для скорости хедера */
 
-  /* NEW: прозрачность подложки под пункты меню */
-  --mods-menubar-opacity: .50;
-  --mods-menubar-opacity-hover: .95;
+  /* NEW: цвет/прозрачность подложки под пункты меню (как у чипов) */
+  --mods-menubar-rgb: 30,46,40;  /* <-- RGB как у виджет-чилпов */
+  --mods-menubar-a: .50;         /* <-- дефолт (подгони под чипы) */
+  --mods-menubar-a-hover: .95;   /* <-- hover/focus */
 }
 
 /* ===== FIXED HEADER ===== */
@@ -127,28 +128,28 @@ a.is-active{}
 
 /* ===== MENU BAR BG (THE SHAPE BEHIND "О нас / Каталог / ...") =====
    1) На шейп подложки в ZeroBlock повесь CSS class: menu-bar-bg
-   2) Меняем только его прозрачность
+   2) Не трогаем opacity (иначе “пляшет”), задаём цвет через rgba как у чипов
 */
 .menu-bar-bg,
 .menu-bar-bg .tn-atom{
-  opacity: var(--mods-menubar-opacity) !important;
-  transition: opacity var(--mods-header-dur) var(--mods-ease) !important;
+  opacity: 1 !important;
+  background-color: rgba(var(--mods-menubar-rgb), var(--mods-menubar-a)) !important;
+  transition: background-color var(--mods-header-dur) var(--mods-ease) !important;
 }
 
 /* Hover: когда курсор над самой подложкой или над хедером/оболочкой */
 .menu-bar-bg:hover,
 .uc-header:hover .menu-bar-bg,
 .header-shell:hover .menu-bar-bg,
-.menu-bar-bg:hover .tn-atom,
-.uc-header:hover .menu-bar-bg .tn-atom,
-.header-shell:hover .menu-bar-bg .tn-atom{
-  opacity: var(--mods-menubar-opacity-hover) !important;
+.uc-header:focus-within .menu-bar-bg{
+  background-color: rgba(var(--mods-menubar-rgb), var(--mods-menubar-a-hover)) !important;
 }
 
-/* Дополнительно: если табом фокус на пункте меню — тоже усиливаем */
-.uc-header:focus-within .menu-bar-bg,
+.menu-bar-bg:hover .tn-atom,
+.uc-header:hover .menu-bar-bg .tn-atom,
+.header-shell:hover .menu-bar-bg .tn-atom,
 .uc-header:focus-within .menu-bar-bg .tn-atom{
-  opacity: var(--mods-menubar-opacity-hover) !important;
+  background-color: rgba(var(--mods-menubar-rgb), var(--mods-menubar-a-hover)) !important;
 }
 
 /* ===== Reduced motion =====
