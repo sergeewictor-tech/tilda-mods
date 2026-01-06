@@ -13,7 +13,7 @@ html.mod-scroll-locked{
   --mods-header-dur: 380ms;    /* <-- ВОТ ЭТО меняешь для скорости хедера */
 
   /* NEW: прозрачность подложки под пункты меню */
-  --mods-menubar-opacity: .30;
+  --mods-menubar-opacity: .50;
   --mods-menubar-opacity-hover: .95;
 }
 
