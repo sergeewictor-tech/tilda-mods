@@ -163,3 +163,14 @@ a.is-active{}
     transform:none !important;
   }
 }
+/* ===== Burger menu: allow scroll when content is taller than viewport ===== */
+.t-rec.uc-menu{
+  overflow-y: hidden !important; /* по умолчанию не скроллим (когда закрыто) */
+}
+
+.t-rec.uc-menu.is-open{
+  overflow-y: auto !important;                 /* скролл внутри меню */
+  -webkit-overflow-scrolling: touch;           /* плавный скролл на iOS */
+  overscroll-behavior: contain;                /* чтобы не “проталкивало” страницу */
+  padding-bottom: 24px;                        /* чтобы нижние пункты не прилипали */
+}
